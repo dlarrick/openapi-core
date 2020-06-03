@@ -19,9 +19,13 @@ class ApiKeyProvider(BaseProvider):
 
     def __call__(self, request):
         source = getattr(request.parameters, self.scheme.apikey_in.value)
-        if self.scheme.name not in source:
+        if self.scheme.apikey_in.value == 'header':
+            name = self.scheme.name.upper()
+        else:
+            name = self.scheme.name
+        if name not in source:
             raise SecurityError("Missing api key parameter.")
-        return source.get(self.scheme.name)
+        return source.get(name)
 
 
 class HttpProvider(BaseProvider):
