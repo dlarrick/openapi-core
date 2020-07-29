@@ -21,10 +21,14 @@ class FalconOpenAPIRequestFactory:
         path = {}
 
         # Support falcon-jsonify.
-        body = (
-            dumps(request.json) if getattr(request, "json", None)
-            else dumps(request.media)
-        )
+        try:
+            body = (
+                dumps(request.json) if getattr(request, "json", None)
+                else dumps(request.media)
+            )
+        except TypeError:
+            body = None
+
         mimetype = request.options.default_media_type
         if request.content_type:
             mimetype = request.content_type.partition(";")[0]
