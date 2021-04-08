@@ -23,7 +23,7 @@ class FalconOpenAPIRequestFactory:
         # Support falcon-jsonify.
         body = (
             dumps(request.json) if getattr(request, "json", None)
-            else dumps(request.media)
+            else dumps(request.get_media(default_when_empty={}))
         )
         mimetype = request.options.default_media_type
         if request.content_type:
