@@ -14,7 +14,7 @@ class FalconOpenAPIResponseFactory(object):
             mimetype = response.options.default_media_type
 
         return OpenAPIResponse(
-            data=response.body,
+            data=response.text,
             status_code=status_code,
             mimetype=mimetype,
         )

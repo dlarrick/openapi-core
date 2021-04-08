@@ -40,7 +40,7 @@ class FalconOpenAPIErrorsHandler(object):
         resp.content_type = MEDIA_JSON
         resp.status = cls.FALCON_STATUS_CODES.get(
             data_error_max['status'], HTTP_400)
-        resp.body = dumps(data)
+        resp.text = dumps(data)
         resp.complete = True
 
     @classmethod
